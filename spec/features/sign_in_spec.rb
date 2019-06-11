@@ -23,6 +23,6 @@ feature 'User can sign in', %q{
     fill_in 'Password', with: '12345678'
     click_on 'Log in'
 
-    expect(page).to have_content 'Invalid email or password.'
+    expect(page).to have_content 'Invalid Email or password.'
   end
 end
