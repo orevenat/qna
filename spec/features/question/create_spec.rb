@@ -14,7 +14,6 @@ feature 'User can create question', %q{
 
       visit questions_path
       click_on 'Ask question'
-
     end
 
     scenario 'asks a question' do
