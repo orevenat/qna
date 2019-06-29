@@ -1,2 +1,22 @@
 = question.title
 = question.body
+
+h2
+  = 'Answers:'
+
+- if !question.answers.empty?
+  = render question.answers
+- else
+  p
+    = 'Noone answered yet'
+
+h2
+  = 'New answer:'
+
+= render 'shared/errors', resource: @answer
+
+= form_with model: [question, @answer], local: true do |f|
+  = f.label :body
+  = f.text_area :body
+  = f.submit 'Send answer'
+
