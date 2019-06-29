@@ -30,10 +30,26 @@ feature 'User can watch question and ask answers', %q{
     end
   end
 
-  scenario 'Unauthenticated user tries to write answer' do
-    visit question_path(question)
-    click_on 'Send answer'
+  context 'Not authenticated user can' do
+    given(:answers) { create_list(:answers, 3, question: question, user: user) }
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    background do
+      visit question_path(question)
+    end
+
+    scenario 'watch list of answers' do
+
+      expect(page).to have_content 'Answers:'
+
+      question.answers.each do |answer|
+        expect(page).to have_content answer.body
+      end
+    end
+
+    scenario 'Unauthenticated user tries to write answer' do
+      click_on 'Send answer'
+
+      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    end
   end
 end

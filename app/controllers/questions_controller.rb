@@ -6,7 +6,6 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = question.answers.new
   end
 
   def new
@@ -43,7 +42,11 @@ class QuestionsController < ApplicationController
     @question ||= params[:id] ? Question.find(params[:id]) : Question.new
   end
 
-  helper_method :question
+  def answer
+    @answer ||= question.answers.new
+  end
+
+  helper_method :question, :answer
 
   def question_params
     params.require(:question).permit(:title, :body)
