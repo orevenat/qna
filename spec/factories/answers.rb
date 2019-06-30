@@ -1,6 +1,6 @@
 FactoryBot.define do
   sequence :body do |n|
-    "answer ##{n}"
+    "question ##{n}"
   end
 
   factory :answer do
