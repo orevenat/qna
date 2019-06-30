@@ -6,6 +6,7 @@ FactoryBot.define do
   factory :question do
     title
     body { "Text text text" }
+    user { association(:user) }
 
     trait :invalid do
       title { nil }
