@@ -13,6 +13,17 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.id == answer.user_id
+      answer.destroy
+      message = { notice: 'Your answer successfully removed.' }
+    else
+      message = { alert: "You can't delete this answer." }
+    end
+
+    redirect_to answer.question, message
+  end
+
   private
 
   def answer

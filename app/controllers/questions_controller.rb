@@ -32,8 +32,12 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question.destroy
-    redirect_to question_path
+    if current_user.id == question.user_id
+      question.destroy
+      redirect_to root_path, notice: 'Your question successfully removed.'
+    else
+      redirect_to question, alert: "You can't delete this question."
+    end
   end
 
   private

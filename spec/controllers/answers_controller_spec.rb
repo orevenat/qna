@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
-  let(:user2) { create(:user) }
+  let(:another_user) { create(:user) }
   let(:question) { create(:question, user: user) }
-  let(:answer) { create(:answer, question: question, user: user2) }
 
   describe '#POST create' do
+    let!(:answer) { create(:answer, question: question, user: another_user) }
+
     before { login(user) }
 
     context 'with valid attributes' do
@@ -32,6 +33,35 @@ RSpec.describe AnswersController, type: :controller do
       it 're-renders new view' do
         post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }
         expect(response).to render_template "questions/show", "layouts/application"
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let!(:answer) { create(:answer, question: question, user: user) }
+    let!(:answer2) { create(:answer, question: question, user: another_user) }
+
+    before { login(user) }
+
+    context 'his own answer' do
+      it 'delete the answer' do
+        expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+      end
+
+      it 'redirects to question' do
+        delete :destroy, params: { id: answer }
+        expect(response).to redirect_to question_path(question)
+      end
+    end
+
+    context 'another user answer' do
+      it 'failed delete the answer' do
+        expect { delete :destroy, params: { id: answer2 } }.to_not change(Answer, :count)
+      end
+
+      it 'redirects to current question' do
+        delete :destroy, params: { id: answer2 }
+        expect(response).to redirect_to question_path(question)
       end
     end
   end
