@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = question.answers.new(answer_params)
+    @answer.user = current_user
     if @answer.save
       redirect_to question_path(question), notice: 'Your answer successfully created.'
     else
@@ -14,7 +15,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user.id == answer.user_id
+    if current_user.author_of?(answer)
       answer.destroy
       message = { notice: 'Your answer successfully removed.' }
     else
@@ -38,6 +39,6 @@ class AnswersController < ApplicationController
   helper_method :question
 
   def answer_params
-    params.require(:answer).permit(:question, :body).merge(user: current_user)
+    params.require(:answer).permit(:question, :body)
   end
 end

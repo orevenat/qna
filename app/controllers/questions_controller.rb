@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
     if @question.save
       redirect_to @question, notice: 'Your question successfully created.'
     else
@@ -32,7 +33,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == question.user_id
+    if current_user.author_of?(question)
       question.destroy
       redirect_to root_path, notice: 'Your question successfully removed.'
     else
@@ -53,6 +54,6 @@ class QuestionsController < ApplicationController
   helper_method :question, :answer
 
   def question_params
-    params.require(:question).permit(:title, :body).merge(user: current_user)
+    params.require(:question).permit(:title, :body)
   end
 end

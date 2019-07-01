@@ -22,6 +22,7 @@ feature 'User can destroy his own answer', %q{
       click_on 'Remove answer'
 
       expect(page).to have_content 'Your answer successfully removed.'
+      expect(page).to_not have_content answer.body
     end
   end
 
