@@ -16,8 +16,12 @@ feature 'User can watch question and answers', %q{
       visit question_path(question)
     end
 
-    scenario 'watch list of answers' do
+    scenario 'show current question' do
+      expect(page).to have_content question.title
+      expect(page).to have_content question.body
+    end
 
+    scenario 'watch list of answers' do
       expect(page).to have_content 'Answers:'
 
       question.answers.each do |answer|

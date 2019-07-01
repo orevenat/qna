@@ -26,8 +26,6 @@ feature 'User can ask answers' do
   end
 
   context 'Not authenticated user can' do
-    given(:answers) { create_list(:answers, 3, question: question, user: user) }
-
     background do
       visit question_path(question)
     end
