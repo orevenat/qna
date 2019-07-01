@@ -17,6 +17,12 @@ RSpec.describe AnswersController, type: :controller do
         end.to change(question.answers, :count).by(1)
       end
 
+      it 'saves a new answer with user author' do
+        expect do
+          post :create, params: { answer: attributes_for(:answer), question_id: question }
+        end.to change(user.answers, :count).by(1)
+      end
+
       it 'redirects to show' do
         post :create, params: { answer: attributes_for(:answer), question_id: question }
         expect(response).to redirect_to assigns(:question)

@@ -21,6 +21,7 @@ feature 'User can destroy his own question', %q{
       click_on 'Remove question'
 
       expect(page).to have_content 'Your question successfully removed.'
+      expect(page).to_not have_content question.body
     end
   end
 
