@@ -3,7 +3,8 @@
 
 h2
   = 'Answers:'
-= render question.answers
+.answers
+  = render question.answers
 
 - if current_user&.author_of?(question)
   p
@@ -16,7 +17,7 @@ h2
 = render 'shared/errors', resource: answer
 
 = form_with model: [question, answer], local: true do |f|
-  = f.label :body
+  = f.label :body, 'Your answer'
   = f.text_area :body
   = f.submit 'Send answer'
 
