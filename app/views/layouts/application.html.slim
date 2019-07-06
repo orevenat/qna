@@ -11,16 +11,11 @@ html lang="en"
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
-    .navbar.navbar-default.navbar-static-top
+    .navbar.navbar-light.bg-light
       .container
-        button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        a.navbar-brand href="/"Qna
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          ul.nav.navbar-nav
-            = render 'shared/nav'
+        a.navbar-brand href="/" Qna
+        ul.navbar-nav.ml-auto
+          = render 'shared/nav'
 
     .container
       .row
