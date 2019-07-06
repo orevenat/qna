@@ -1,38 +1,37 @@
 require 'rails_helper'
 
-feature 'User can ask answers' do
+feature 'User can give an answers' do
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
 
       visit question_path(question)
     end
 
-    scenario 'make answer to question' do
+    scenario 'create answer to question' do
       fill_in 'Your answer', with: 'answer text'
       click_on 'Send answer'
 
-      expect(page).to have_content 'Your answer successfully created.'
       within '.answers' do
         expect(page).to have_content 'answer text'
       end
     end
 
-    scenario 'asks a question with errors' do
+    scenario 'create answer to question with errors' do
       click_on 'Send answer'
       expect(page).to have_content "Body can't be blank"
     end
   end
 
-  context 'Not authenticated user can' do
+  context 'Not authenticated user' do
     background do
       visit question_path(question)
     end
 
-    scenario 'Unauthenticated user tries to write answer' do
+    scenario 'tries to write answer' do
       click_on 'Send answer'
 
       expect(page).to have_content 'You need to sign in or sign up before continuing.'
