@@ -12,11 +12,13 @@ feature 'User can ask answers' do
     end
 
     scenario 'make answer to question' do
-      fill_in 'Body', with: 'answer text'
+      fill_in 'Your answer', with: 'answer text'
       click_on 'Send answer'
 
       expect(page).to have_content 'Your answer successfully created.'
-      expect(page).to have_content 'answer text'
+      within '.answers' do
+        expect(page).to have_content 'answer text'
+      end
     end
 
     scenario 'asks a question with errors' do
