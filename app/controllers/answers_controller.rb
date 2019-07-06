@@ -8,18 +8,13 @@ class AnswersController < ApplicationController
   end
 
   def update
-    answer.update(answer_params)
+    if current_user.author_of?(answer)
+      answer.update(answer_params)
+    end
   end
 
   def destroy
-    if current_user.author_of?(answer)
-      answer.destroy
-      message = { notice: 'Your answer successfully removed.' }
-    else
-      message = { alert: "You can't delete this answer." }
-    end
-
-    redirect_to answer.question, message
+    answer.destroy if current_user.author_of?(answer)
   end
 
   private
