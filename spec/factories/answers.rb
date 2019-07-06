@@ -1,11 +1,12 @@
 FactoryBot.define do
   sequence :body do |n|
-    "question ##{n}"
+    "answer ##{n}"
   end
 
   factory :answer do
     body
     question
+    user
 
     trait :invalid do
       body { nil }
