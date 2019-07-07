@@ -112,4 +112,33 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'POST #set_best' do
+    let!(:answer) { create(:answer, question: question, user: another_user) }
+
+    context 'question author' do
+      before { login(user) }
+
+      it 'sets best to true' do
+        post :set_best, params: {id: answer }, format: :js
+        answer.reload
+        expect(answer).to be_best
+      end
+
+      it 'renders set_best template' do
+        post :set_best, params: {id: answer }, format: :js
+        expect(response).to render_template :set_best
+      end
+    end
+
+    context 'another user' do
+      before { login(another_user) }
+
+      it "don't sets best to true" do
+        post :set_best, params: {id: answer }, format: :js
+        answer.reload
+        expect(answer).to_not be_best
+      end
+    end
+  end
 end
