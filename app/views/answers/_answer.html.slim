@@ -2,6 +2,10 @@
   div id="answer-#{answer.id}"
     .current-answer-errors
     p= answer.body
+    - if answer.best == true
+      b Best answer
+    - if current_user&.author_of?(answer.question) && answer.best == false
+      = link_to 'Set as best', set_best_answer_path(answer), remote: true, method: :post
     - if current_user&.author_of?(answer)
       p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
