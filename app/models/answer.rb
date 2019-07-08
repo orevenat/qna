@@ -8,8 +8,8 @@ class Answer < ApplicationRecord
 
   def set_best
     transaction do
-      question.answers.find_by(best: true)&.update(best: false)
-      update(best: true)
+      question.answers.find_by(best: true)&.update!(best: false)
+      update!(best: true)
     end
   end
 end
