@@ -8,6 +8,12 @@ FactoryBot.define do
     body { "Text text text" }
     user { association(:user) }
 
+    trait :with_file do
+      file {
+        fixture_file_upload(Rails.root.join('spec', 'rails_helper.rb'))
+      }
+    end
+
     trait :invalid do
       title { nil }
     end
