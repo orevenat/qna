@@ -12,7 +12,7 @@ feature 'User can edit his answer', %q{
   given!(:answer) { create(:answer, question: question, user: user) }
   given!(:answer2) { create(:answer, question: question, user: user2) }
 
-  scenario 'Unathenticated can no edit answer' do
+  scenario "Unathenticated can't edit answer" do
     visit question_path(question)
     expect(page).to_not have_link  'Edit'
   end
@@ -33,6 +33,19 @@ feature 'User can edit his answer', %q{
         expect(page).to_not have_content answer.body
         expect(page).to have_content 'edited answer'
         expect(page).to_not have_selector 'textarea'
+      end
+    end
+
+    scenario 'edit his answer with attached files' do
+      click_on 'Edit answer'
+
+      within "#answer-#{answer.id}" do
+        fill_in 'Your answer', with: 'edited answer'
+        attach_file 'Files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Save answer'
+
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
       end
     end
 
