@@ -38,6 +38,20 @@ feature 'User can edit his question', %q{
       end
     end
 
+    scenario 'edit his question with attached files' do
+      click_on 'Edit question'
+
+      within "#question-area" do
+        fill_in 'Your title', with: 'edited title'
+        fill_in 'Your question', with: 'edited question'
+        attach_file 'Files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Save question'
+
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
+    end
+
     scenario 'edits his answer with errors' do
       click_on 'Edit question'
 
