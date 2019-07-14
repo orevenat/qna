@@ -9,9 +9,7 @@ FactoryBot.define do
     user { association(:user) }
 
     trait :with_file do
-      file {
-        fixture_file_upload(Rails.root.join('spec', 'rails_helper.rb'))
-      }
+      files { fixture_file_upload(Rails.root.join('spec', 'rails_helper.rb'), 'rails_helper.rb') }
     end
 
     trait :invalid do

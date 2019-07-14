@@ -7,7 +7,7 @@ feature 'User can destroy his own answer', %q{
 
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
-  given!(:answer) { create(:answer, question: question, user: user) }
+  given!(:answer) { create(:answer, :with_file, question: question, user: user) }
   given(:another_user) { create(:user) }
 
   describe 'Authenticated user' do
@@ -28,6 +28,21 @@ feature 'User can destroy his own answer', %q{
       a.accept
       expect(page).to_not have_content answer.body
     end
+
+    scenario 'remove attached file' do
+      filename = answer.files.first.filename.to_s
+
+      within "#answer-#{answer.id}" do
+        expect(page).to have_link 'Remove file'
+        expect(page).to have_content filename
+
+        click_on 'Remove file'
+
+        expect(page).to_not have_content filename
+      end
+
+      expect(page).to have_content 'Your file succesfully removed.'
+    end
   end
 
   describe 'Another user', js: true do
@@ -40,6 +55,15 @@ feature 'User can destroy his own answer', %q{
       within "#answer-#{answer.id}" do
         expect(page).to have_content answer.body
         expect(page).to_not have_link 'Remove answer'
+      end
+    end
+
+    scenario 'remove attached file' do
+      within "#answer-#{answer.id}" do
+        filename = answer.files.first.filename.to_s
+
+        expect(page).to have_content filename
+        expect(page).to_not have_link 'Remove file'
       end
     end
   end
