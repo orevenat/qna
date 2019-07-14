@@ -6,7 +6,7 @@ feature 'User can destroy his own question', %q{
 } do
 
   given(:user) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given(:question) { create(:question, :with_file, user: user) }
   given(:another_user) { create(:user) }
 
   describe 'Authenticated user' do
@@ -15,13 +15,24 @@ feature 'User can destroy his own question', %q{
       visit question_path(question)
     end
 
-    scenario 'remove_question' do
+    scenario 'remove question' do
       expect(page).to have_content question.body
 
       click_on 'Remove question'
 
       expect(page).to have_content 'Your question successfully removed.'
       expect(page).to_not have_content question.body
+    end
+
+    scenario 'remove attached file' do
+      filename = question.files.first.filename.to_s
+      expect(page).to have_link 'Remove file'
+      expect(page).to have_content filename
+
+      click_on 'Remove file'
+
+      expect(page).to have_content 'Your file succesfully removed.'
+      expect(page).to_not have_content filename
     end
   end
 
@@ -34,6 +45,12 @@ feature 'User can destroy his own question', %q{
     scenario 'remove a question' do
       expect(page).to have_content question.body
       expect(page).to_not have_link 'Remove question'
+    end
+
+    scenario 'remove a file' do
+      filename = question.files.first.filename.to_s
+      expect(page).to have_content filename
+      expect(page).to_not have_link 'Remove file'
     end
   end
 
