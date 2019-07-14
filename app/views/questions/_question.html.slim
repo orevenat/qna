@@ -17,7 +17,7 @@ p= question.body
     = f.label :body, 'Your question'
     = f.text_area :body
     = f.label :files
-    = f.file_field :files, multiple: true
+    = f.file_field :files, multiple: true, direct_upload: true
     = f.submit 'Save question'
   p
     = link_to 'Remove question', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
