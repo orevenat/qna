@@ -35,6 +35,6 @@ class AnswersController < ApplicationController
   helper_method :question
 
   def answer_params
-    params.require(:answer).permit(:question, :body)
+    params.require(:answer).permit(:question, :body, files: [])
   end
 end
