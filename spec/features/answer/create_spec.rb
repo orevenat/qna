@@ -20,6 +20,18 @@ feature 'User can give an answers' do
       end
     end
 
+    scenario 'asks a question with attached file' do
+      fill_in 'Your answer', with: 'answer text'
+
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Send answer'
+
+      within '.answers' do
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+      end
+    end
+
     scenario 'create answer to question with errors' do
       click_on 'Send answer'
       expect(page).to have_content "Body can't be blank"
