@@ -20,12 +20,15 @@ p= question.body
     = render 'shared/errors', resource: question
 
   = form_with model: question, class: 'hidden', html: { id: "question-form" } do |f|
-    = f.label :title, 'Your title'
-    = f.text_field :title
-    = f.label :body, 'Your question'
-    = f.text_area :body
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+    p
+      = f.label :title, 'Your title'
+      = f.text_field :title
+    p
+      = f.label :body, 'Your question'
+      = f.text_area :body
+    p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
     = f.submit 'Save question'
   p
     = link_to 'Remove question', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
