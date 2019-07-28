@@ -7,7 +7,8 @@ feature 'User can add links to answer', %q{
 } do
   given(:user) { create(:user) }
   given(:question) { create(:question) }
-  given(:gist_url) { 'https://gist.github.com/orevenat/29dec3ca96dea11e6293627ae7d155fe' }
+  given(:gist_url) { 'https://gist.github.com/orevenat/14e14db899be7db08178ddc5897b634e' }
+  given(:gist_content) { 'Gist text - gist text' }
   given(:urls) { ['https://google.com', 'https://yandex.ru'] }
 
   background do
@@ -26,7 +27,8 @@ feature 'User can add links to answer', %q{
     click_on 'Send answer'
 
     within '.answers' do
-      expect(page).to have_link 'My gist', href: gist_url
+      expect(page).to have_content gist_content
+      expect(page).to_not have_link 'My gist', href: gist_url
     end
   end
 

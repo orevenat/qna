@@ -1,0 +1,8 @@
+- if resource.links.present?
+  h4 Links list:
+  ul.links
+    - resource.links.each do |link|
+      - if link.gist?
+        li= link.gist_content
+      - else
+        li= link_to link.name, link.url
