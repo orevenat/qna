@@ -6,7 +6,8 @@ feature 'User can add links to question', %q{
   I'd like to be able to add links
 } do
   given(:user) { create(:user) }
-  given(:gist_url) { 'https://gist.github.com/orevenat/29dec3ca96dea11e6293627ae7d155fe' }
+  given(:gist_url) { 'https://gist.github.com/orevenat/14e14db899be7db08178ddc5897b634e' }
+  given(:gist_content) { 'Gist text - gist text' }
   given(:urls) { ['https://google.com', 'https://yandex.ru'] }
 
   background do
@@ -25,7 +26,8 @@ feature 'User can add links to question', %q{
 
     click_on 'Ask'
 
-    expect(page).to have_link 'My gist', href: gist_url
+    expect(page).to have_content gist_content
+    expect(page).to_not have_link 'My gist', href: gist_url
   end
 
   scenario 'User adds links when asks question', js: true do
@@ -37,7 +39,7 @@ feature 'User can add links to question', %q{
     click_on 'Add link'
     click_on 'Add link'
 
-    all(".nested-fields").each_with_index do |nested, index|
+    all('.nested-fields').each_with_index do |nested, index|
       within nested do
         fill_in 'Link name', with: "My link # #{index + 1}"
         fill_in 'Url', with: urls[index]
