@@ -5,7 +5,7 @@ FactoryBot.define do
 
   factory :question do
     title
-    body { "Text text text" }
+    body { 'Text text text' }
     user { association(:user) }
 
     trait :with_file do
