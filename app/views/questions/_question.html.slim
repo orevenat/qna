@@ -26,6 +26,10 @@ p= question.body
     p
       = f.label :files
       = f.file_field :files, multiple: true, direct_upload: true
-    = f.submit 'Save question'
+
+    p
+      = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
+    p
+      = f.submit 'Save question'
   p
     = link_to 'Remove question', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
