@@ -8,6 +8,9 @@ p= question.body
       - if current_user&.author_of?(question)
         = link_to 'Remove file', attachment_path(file), method: :delete, data: {confirm: 'Are you sure?'}
 
+.question_reward
+  = render 'rewards/reward', resource: question
+
 = render 'links/links', resource: question
 
 - if current_user&.author_of?(question)
