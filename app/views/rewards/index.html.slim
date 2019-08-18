@@ -1,0 +1,6 @@
+h1 Your rewards
+ul
+- @rewards.each do |reward|
+  li
+    h2 = "Question: #{reward.question.title}"
+    = render 'rewards/reward', reward: reward
