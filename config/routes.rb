@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :rewards, only: :index
+
   root to: 'questions#index'
 end
