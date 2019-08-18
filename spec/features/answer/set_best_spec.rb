@@ -9,6 +9,7 @@ feature 'User can set best answer of his question', %q{
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
+  given!(:reward) { create(:reward, user: user, question: question) }
   given!(:best_answer) { create(:answer, question: question) }
   given!(:another_best_answer) { create(:answer, question: question) }
   given!(:another_answer) { create(:answer, question: question) }
@@ -66,11 +67,11 @@ feature 'User can set best answer of his question', %q{
   scenario 'Another authenticated user try set best answer' do
     visit question_path(question)
     sign_in(another_user)
-    expect(page).to_not have_link  'Set as best'
+    expect(page).to_not have_link 'Set as best'
   end
 
   scenario 'Unauthenticated user try set best answer' do
     visit question_path(question)
-    expect(page).to_not have_link  'Set as best'
+    expect(page).to_not have_link 'Set as best'
   end
 end

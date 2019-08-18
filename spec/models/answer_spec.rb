@@ -15,16 +15,22 @@ RSpec.describe Answer, type: :model do
 
   describe '#set_best' do
     let(:user) { create(:user) }
+    let(:another_user) { create(:user) }
     let(:question) { create(:question, user: user) }
+    let!(:reward) { create(:reward, question: question) }
     let(:another_question) { create(:question, user: user) }
-    let(:answer) { create(:answer, question: question) }
-    let(:another_answer) { create(:answer, question: question) }
+    let(:answer) { create(:answer, question: question, user: user) }
+    let(:another_answer) { create(:answer, question: question, user: another_user) }
     let(:another_question_answer) { create(:answer, question: another_question) }
 
     before { answer.set_best }
 
     it 'should mark answer as the best' do
       expect(answer).to be_best
+    end
+
+    it 'question reward must belong to answer author' do
+      expect(reward.user).to eq answer.user
     end
 
     it "should't change marked answer" do

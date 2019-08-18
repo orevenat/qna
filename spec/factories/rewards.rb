@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :reward do
-    title { "MyString" }
-    image { "MyString" }
-    question { nil }
-    user { nil }
+    title { 'My reward' }
+    image { fixture_file_upload(Rails.root.join('public', 'reward_logo.png'), 'reward_logo.png') }
   end
 end
