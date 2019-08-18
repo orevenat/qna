@@ -15,6 +15,7 @@ class Answer < ApplicationRecord
     transaction do
       question.answers.find_by(best: true)&.update!(best: false)
       update!(best: true)
+      question.reward&.update!(user: user)
     end
   end
 end
