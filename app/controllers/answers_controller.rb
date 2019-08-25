@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class AnswersController < ApplicationController
+  include Voted
+
   before_action :authenticate_user!
 
   def create
@@ -8,9 +12,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(answer)
-      answer.update(answer_params)
-    end
+    answer.update(answer_params) if current_user.author_of?(answer)
   end
 
   def destroy
@@ -36,6 +38,6 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:question, :body,
-                                   files: [], links_attributes: [:name, :url])
+                                   files: [], links_attributes: %i[name url])
   end
 end

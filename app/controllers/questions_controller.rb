@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  include Voted
+
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @questions = Question.all
@@ -14,8 +18,7 @@ class QuestionsController < ApplicationController
     question.build_reward
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @question = Question.new(question_params)
@@ -28,9 +31,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(question)
-      question.update(question_params)
-    end
+    question.update(question_params) if current_user.author_of?(question)
   end
 
   def destroy
