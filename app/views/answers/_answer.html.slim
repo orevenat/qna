@@ -13,6 +13,8 @@
 
     = render 'links/links', resource: answer
 
+    = render 'shared/vote', resource: answer
+
     - if answer.best?
       b Best answer
     - elsif current_user&.author_of?(answer.question) && !answer.best?
