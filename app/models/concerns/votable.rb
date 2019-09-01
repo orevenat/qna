@@ -16,7 +16,7 @@ module Votable
   end
 
   def vote_cancel(user)
-    votes.find_or_create_by!(user: user).update!(value: 0)
+    votes.find_by(user: user).destroy
   end
 
   def rating
