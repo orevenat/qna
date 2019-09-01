@@ -16,6 +16,9 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require activestorage
-//= require activestorage
+//= require action_cable
 //= require cocoon
 //= require_tree .
+
+var App = App || {};
+App.cable = ActionCable.createConsumer();
