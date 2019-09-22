@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    gon.question_id = question.id
     answer.links.new
   end
 
@@ -61,7 +62,7 @@ class QuestionsController < ApplicationController
     return if question.errors.any?
 
     ActionCable.server.broadcast(
-      'questions',
+      'question',
       ApplicationController.render(
         partial: 'questions/question_link',
         locals: { question: question }

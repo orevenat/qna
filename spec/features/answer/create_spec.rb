@@ -38,6 +38,30 @@ feature 'User can give an answers' do
     end
   end
 
+  context 'multiple sessions', js: true do
+    scenario "answer appears on another user's page" do
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+
+        fill_in 'Your answer', with: 'answer text multiple'
+        click_on 'Send answer'
+
+        within '.answers' do
+          expect(page).to have_content 'answer text multiple'
+        end
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'answer text multiple'
+      end
+    end
+  end
+
   context 'Not authenticated user' do
     background do
       visit question_path(question)
