@@ -1,0 +1,21 @@
+div id="answer-#{@answer.id}"
+  p= @answer.body
+
+  - if (@links.length > 0)
+    h4 Links list:
+    ul.links
+    - @links.forEach (link) ->
+      li id="link_#{link.id}"
+        a href = raw link.url #{link.name}
+
+  .vote
+    p.vote_rating
+      = "Rating value: "
+      span= @rating
+
+    - if gon.user_id
+      a href="/answers/#{@answer.id}/vote_up" data-method="post" data-remote="true" data-type="json" rel="nofollow" Up
+      a href="/answers/#{@answer.id}/vote_down" data-method="post" data-remote="true" data-type="json" rel="nofollow" Down
+
+  - if @answer.best
+    b Best answer

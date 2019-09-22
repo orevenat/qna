@@ -4,6 +4,7 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
+  after_action :publish_answer, only: [:create]
 
   def create
     @answer = question.answers.new(answer_params)
@@ -39,5 +40,16 @@ class AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:question, :body,
                                    files: [], links_attributes: %i[name url])
+  end
+
+  def publish_answer
+    return if answer.errors.any?
+
+    ActionCable.server.broadcast(
+        "questions/#{question.id}/answers",
+        answer: answer,
+        links: answer.links,
+        rating: answer.rating
+    )
   end
 end
