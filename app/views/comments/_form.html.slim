@@ -1,0 +1,11 @@
+- resource_type = resource.class.name.underscore
+
+.comments-form
+  = form_with model: [resource, resource.comments.new], remote: true, id: "new-comment-#{resource_type}-#{resource.id}" do |f|
+    .errors
+    p
+      = f.label :body, 'Comment'
+      = f.text_area :body
+    p
+      = f.submit 'Add comment'
+

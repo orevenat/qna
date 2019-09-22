@@ -62,7 +62,7 @@ class QuestionsController < ApplicationController
     return if question.errors.any?
 
     ActionCable.server.broadcast(
-      'question',
+      'questions',
       ApplicationController.render(
         partial: 'questions/question_link',
         locals: { question: question }
