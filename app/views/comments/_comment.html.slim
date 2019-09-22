@@ -1,0 +1,8 @@
+- if comment.persisted?
+  em.small id="comment_#{comment.id}"
+    .text-right
+      span
+        = comment.user.email
+      span
+        = comment.created_at.strftime('%d-%m-%Y')
+    span= comment.body

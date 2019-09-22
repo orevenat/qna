@@ -15,6 +15,13 @@
 
     = render 'shared/vote', resource: answer
 
+    .answer_comments
+      = render 'comments/comments', resource: answer
+
+    - if current_user
+      .new_comment
+        = render 'comments/form', resource: answer
+
     - if answer.best?
       b Best answer
     - elsif current_user&.author_of?(answer.question) && !answer.best?

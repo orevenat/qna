@@ -1,40 +1,48 @@
-h1= question.title
-p= question.body
+.question
+  h1= question.title
+  p= question.body
 
-- if question.files.attached?
-  - question.files.each do |file|
+  - if question.files.attached?
+    - question.files.each do |file|
+      p
+        = link_to file.filename.to_s, url_for(file)
+        - if current_user&.author_of?(question)
+          = link_to 'Remove file', attachment_path(file), method: :delete, data: {confirm: 'Are you sure?'}
+
+  .question_reward
+    = render 'rewards/reward', reward: question.reward
+
+  = render 'links/links', resource: question
+
+  = render 'shared/vote', resource: question
+
+  .question_comments
+    = render 'comments/comments', resource: question
+
+  - if current_user
+    .new_comment
+      = render 'comments/form', resource: question
+
+  - if current_user&.author_of?(question)
+    p= link_to 'Edit question', '#', class: 'edit-question-link'
+
+    .current-question-errors
+      = render 'shared/errors', resource: question
+
+    = form_with model: question, class: 'hidden', html: { id: "question-form" } do |f|
+      p
+        = f.label :title, 'Your title'
+        = f.text_field :title
+      p
+        = f.label :body, 'Your question'
+        = f.text_area :body
+      p
+        = f.label :files
+        = f.file_field :files, multiple: true, direct_upload: true
+
+      p
+        = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
+      p
+        = f.submit 'Save question'
     p
-      = link_to file.filename.to_s, url_for(file)
-      - if current_user&.author_of?(question)
-        = link_to 'Remove file', attachment_path(file), method: :delete, data: {confirm: 'Are you sure?'}
-
-.question_reward
-  = render 'rewards/reward', reward: question.reward
-
-= render 'links/links', resource: question
-
-= render 'shared/vote', resource: question
-
-- if current_user&.author_of?(question)
-  p= link_to 'Edit question', '#', class: 'edit-question-link'
-
-  .current-question-errors
-    = render 'shared/errors', resource: question
-
-  = form_with model: question, class: 'hidden', html: { id: "question-form" } do |f|
-    p
-      = f.label :title, 'Your title'
-      = f.text_field :title
-    p
-      = f.label :body, 'Your question'
-      = f.text_area :body
-    p
-      = f.label :files
-      = f.file_field :files, multiple: true, direct_upload: true
-
-    p
-      = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
-    p
-      = f.submit 'Save question'
-  p
-    = link_to 'Remove question', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to 'Remove question', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }
