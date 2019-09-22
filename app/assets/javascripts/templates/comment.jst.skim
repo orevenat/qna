@@ -1,0 +1,7 @@
+em.small id="comment_#{@comment.id}"
+  .text-right
+    span
+      = @email
+    span
+      = @created_at
+  span= @comment.body

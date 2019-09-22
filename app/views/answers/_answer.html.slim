@@ -15,7 +15,7 @@
 
     = render 'shared/vote', resource: answer
 
-    .answer_comments
+    div class="answer_comments_#{answer.id}"
       = render 'comments/comments', resource: answer
 
     - if current_user

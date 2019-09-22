@@ -32,6 +32,56 @@ feature 'User can create a comment for a question or answer' do
     end
   end
 
+  context 'multiple sessions', js: true do
+    scenario "question comments appears on another user's page" do
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+
+        within '#question-area' do
+          fill_in 'Comment', with: 'Test comment'
+          click_on 'Add comment'
+
+          expect(page).to have_content 'Test comment'
+        end
+      end
+
+      Capybara.using_session('guest') do
+        within '#question-area' do
+          expect(page).to have_content 'Test comment'
+        end
+      end
+    end
+
+    scenario "answers comments appears on another user's page" do
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+
+        within '.answers' do
+          fill_in 'Comment', with: 'Test comment'
+          click_on 'Add comment'
+
+          expect(page).to have_content 'Test comment'
+        end
+      end
+
+      Capybara.using_session('guest') do
+        within '.answers' do
+          expect(page).to have_content 'Test comment'
+        end
+      end
+    end
+  end
+
   describe 'Unauthenticated user tries to create comment for' do
     background do
       visit question_path(question)
