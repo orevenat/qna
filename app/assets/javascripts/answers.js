@@ -18,15 +18,9 @@ $(document).on('turbolinks:load', function(){
       });
     },
     received(data) {
-      console.log(data);
       if (data.answer.user_id != gon.user_id) {
         answersList.append(JST["templates/answer"](data))
       }
     }
-    // received(data) {
-    //   // if data.answer.user_id != gon.user_id {
-    //   //   $('.answers').append(JST["templates/answer"](data))
-    //   // }
-    // }
   });
 });
