@@ -9,10 +9,8 @@ $(document).on('turbolinks:load', function(){
       });
     },
     received(data) {
-      if (data.comment.user_id != gon.user_id) {
-        resourceType = data.comment.commentable_type
-        $('.' + resourceType.toLowerCase() + '_comments_' + data.comment.commentable_id).append(JST["templates/comment"](data))
-      }
+      resourceType = data.comment.commentable_type
+      $('.' + resourceType.toLowerCase() + '_comments_' + data.comment.commentable_id).append(JST["templates/comment"](data))
     }
   });
 });

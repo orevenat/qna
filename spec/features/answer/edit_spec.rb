@@ -36,7 +36,7 @@ feature 'User can edit his answer', %q{
 
           expect(page).to_not have_content answer.body
           expect(page).to have_content 'edited answer'
-          expect(page).to_not have_selector 'textarea'
+          expect(page).to_not have_selector 'textarea#answer_body'
         end
       end
 
@@ -69,7 +69,7 @@ feature 'User can edit his answer', %q{
 
           expect(page).to have_content answer.body
           expect(page).to have_content "Body can't be blank"
-          expect(page).to have_selector 'textarea'
+          expect(page).to have_selector 'textarea#answer_body'
         end
       end
     end

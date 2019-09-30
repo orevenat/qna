@@ -1,4 +1,5 @@
 - if reward.present?
   h4 Reward:
   p= reward.title
-  p= image_tag reward.image, alt: reward.title
+  - if reward.image?
+    p= image_tag reward.image, alt: reward.title
