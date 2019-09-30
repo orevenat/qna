@@ -44,6 +44,8 @@ gem 'devise'
 gem 'gon'
 gem 'jquery-rails'
 gem 'octokit'
+gem 'omniauth'
+gem 'omniauth-github'
 gem 'skim'
 gem 'slim-rails'
 
