@@ -9,7 +9,6 @@ feature 'User can sign up', %q{
   background { visit new_user_registration_path }
 
   context 'Unregistred user tries sign up with errors' do
-
     scenario 'with empty email' do
       fill_in 'Password', with: 'password'
       fill_in 'Password', with: 'password'
