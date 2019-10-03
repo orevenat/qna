@@ -71,7 +71,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'renders update view' do
         patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid) }, format: :js
-        expect(response).to render_template :update
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -108,7 +108,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to current question' do
         delete :destroy, params: { id: answer2, format: :js }
-        expect(response).to render_template :destroy
+        expect(response).to have_http_status :forbidden
       end
     end
   end
