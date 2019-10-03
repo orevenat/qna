@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class LinksController < ApplicationController
+  skip_authorization_check
+
   def destroy
-    if current_user.author_of?(resource)
+    if can?(:destroy, resource)
       link.destroy
     else
       render status: :forbidden

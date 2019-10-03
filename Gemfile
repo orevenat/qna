@@ -39,6 +39,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.3.1'
+gem 'cancancan'
 gem 'cocoon'
 gem 'devise'
 gem 'gon'

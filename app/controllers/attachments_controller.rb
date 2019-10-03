@@ -1,4 +1,6 @@
 class AttachmentsController < ApplicationController
+  skip_authorization_check
+
   def destroy
     resource = attachment.record
 
