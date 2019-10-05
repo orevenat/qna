@@ -5,16 +5,10 @@ describe 'Questions API', type: :request do
                     "ACCEPT" => "application/json"} }
 
   describe 'GET /api/v1/questions' do
-    context 'unauthorized' do
-      it 'returns 401 status if there is no access_token' do
-        get '/api/v1/questions', headers: headers
-        expect(response.status).to eq 401
-      end
+    let(:api_path) { '/api/v1/questions' }
 
-      it 'returns 401 status if access_token is invalid' do
-        get '/api/v1/questions', params: { access_token: '123456' }, headers: headers
-        expect(response.status).to eq 401
-      end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { 'get' }
     end
 
     context 'authorized' do
@@ -25,10 +19,6 @@ describe 'Questions API', type: :request do
       let!(:answers) { create_list(:answer, 3, question: question) }
 
       before { get '/api/v1/questions', params: { access_token: access_token.token }, headers: headers }
-
-      it 'returns 200 status' do
-        expect(response).to be_successful
-      end
 
       it 'returns list of questions' do
         expect(json['questions'].size).to eq 3
