@@ -12,6 +12,9 @@ AllCops:
     - 'vendor/**/*'
     - 'node_modules/**/*'
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
