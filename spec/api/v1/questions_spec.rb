@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 describe 'Questions API', type: :request do
-  let(:headers) { { "CONTENT_TYPE" => "application/json",
-                    "ACCEPT" => "application/json"} }
+  let(:me) { create(:user) }
+  let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+  let(:headers) { { "ACCEPT" => "application/json"} }
+  let(:params) { { access_token: access_token.token } }
 
   describe 'GET /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
@@ -12,7 +14,6 @@ describe 'Questions API', type: :request do
     end
 
     context 'authorized' do
-      let(:access_token) { create(:access_token) }
       let!(:questions) { create_list(:question, 3) }
       let(:question) { questions.first }
       let(:question_response) { json['questions'].first }
@@ -64,7 +65,6 @@ describe 'Questions API', type: :request do
     end
 
     context 'authorized' do
-      let(:access_token) { create(:access_token) }
       let(:question_response) { json['question'] }
       let!(:answers) { create_list(:answer, 3, question: question) }
       let!(:comments) { create_list(:comment, 3, commentable: question) }
@@ -139,6 +139,55 @@ describe 'Questions API', type: :request do
 
         it 'return url fields for question files' do
           expect(question_response['files'].first['url']).to eq rails_blob_path(files.first, only_path: true)
+        end
+      end
+    end
+  end
+
+  describe 'POST /api/v1/questions' do
+    let(:api_path) { '/api/v1/questions' }
+    let(:params) { { access_token: access_token.token, question: question_params } }
+    let(:question_params) { { title: "New title", body: "New body" } }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { 'post' }
+    end
+
+    context 'authorized' do
+      context 'create with valid params' do
+        before { post api_path, params: params, headers: headers }
+
+        it 'return status 201' do
+          expect(response.status).to eq 201
+        end
+
+        it 'saves a new question in the database' do
+          expect(me.questions.count).to eq 1
+        end
+
+        it 'return all public fields' do
+          %w[title body].each do |attr|
+            expect(:question_response[attr]).to eq question_params[attr]
+          end
+        end
+      end
+
+      context 'create with invalid params' do
+        let(:params) { { access_token: access_token.token,
+                         question: { title: "New title", body: nil } } }
+
+        before { post api_path, headers: headers, params: params }
+
+        it 'return status :unprocessable_entity' do
+          expect(response.status).to eq 422
+        end
+
+        it 'saves a new question in the database' do
+          expect(Question.count).to eq 0
+        end
+
+        it 'return error message' do
+          expect(json['errors']).to be_truthy
         end
       end
     end
