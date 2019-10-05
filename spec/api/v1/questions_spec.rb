@@ -195,7 +195,7 @@ describe 'Questions API', type: :request do
     end
   end
 
-  describe 'PATCH /api/v1/question/:id' do
+  describe 'PATCH /api/v1/questions/:id' do
     let(:question_params) { { title: "New title", body: "New body" } }
     let(:params) { { access_token: access_token.token, question: question_params } }
     let(:question) { create(:question, user: me) }
@@ -221,6 +221,24 @@ describe 'Questions API', type: :request do
         it 'return status :unprocessable_entity' do
           expect(response.status).to eq 422
         end
+      end
+    end
+  end
+
+  describe 'DESTROY /api/v1/questions/:id' do
+    let(:params) { { access_token: access_token.token } }
+    let(:question) { create(:question, user: me) }
+    let(:api_path) { "/api/v1/questions/#{question.id}" }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { 'delete' }
+    end
+
+    context 'authorized' do
+      context 'update with valid params' do
+        before { delete api_path, headers: headers, params: params }
+
+        it_behaves_like 'Request sucessfull status'
       end
     end
   end

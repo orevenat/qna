@@ -31,6 +31,15 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     end
   end
 
+  def destroy
+    if question.destroy
+      head :ok
+    else
+      render json: { errors: question.errors }, status: :unprocessable_entity
+    end
+
+  end
+
   private
 
   def question_params
