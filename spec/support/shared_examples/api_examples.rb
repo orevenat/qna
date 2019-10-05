@@ -12,13 +12,10 @@ RSpec.shared_examples 'API Authorizable' do
       expect(response.status).to eq 401
     end
   end
+end
 
-  context 'authorized' do
-    let(:access_token) { create(:access_token) }
-
-    it 'returns 200 status' do
-      do_request(method, api_path, params: params, headers: headers)
-      expect(response).to be_successful
-    end
+RSpec.shared_examples 'Request sucessfull status' do
+  it 'returns 2xx status' do
+    expect(response).to be_successful
   end
 end

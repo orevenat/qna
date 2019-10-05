@@ -18,6 +18,8 @@ describe 'Profiles API', type: :request do
 
       before { get api_path, params: { access_token: access_token.token }, headers: headers }
 
+      it_behaves_like 'Request sucessfull status'
+
       it 'returns all public fields' do
         %w[id email admin created_at updated_at].each do |attr|
           expect(content[attr]).to eq me.send(attr).as_json
@@ -45,6 +47,8 @@ describe 'Profiles API', type: :request do
       let(:user) { users.first }
 
       before { get api_path, params: { access_token: access_token.token }, headers: headers }
+
+      it_behaves_like 'Request sucessfull status'
 
       it 'returns all public fields' do
         %w[id email admin created_at updated_at].each do |attr|
