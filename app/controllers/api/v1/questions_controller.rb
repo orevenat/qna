@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::QuestionsController < Api::V1::BaseController
-  before_action :question, only: [:show, :update]
+  before_action :question, only: [:show, :update, :destroy]
 
   authorize_resource
 
