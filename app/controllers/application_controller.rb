@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :gon_user
+  before_action :gon_user, unless: :devise_controller?
+  check_authorization unless: :devise_controller?
 
   private
 
@@ -16,6 +17,4 @@ class ApplicationController < ActionController::Base
       format.js { head :forbidden }
     end
   end
-
-  check_authorization unless: :devise_controller?
 end

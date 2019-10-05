@@ -7,9 +7,10 @@ RSpec.describe Ability do
   describe 'for guest' do
     let(:user) { nil }
 
-    it { should be_able_to :read, Question }
     it { should be_able_to :read, Answer }
     it { should be_able_to :read, Comment }
+    it { should be_able_to :read, Question }
+    it { should be_able_to :read, User }
 
     it { should_not be_able_to :manage, :all }
   end
@@ -30,7 +31,10 @@ RSpec.describe Ability do
     let(:other_answer) { create(:answer, user: other_user, question: question) }
 
     it { should_not be_able_to :manage, :all }
-    it { should be_able_to :read, :all }
+    it { should be_able_to :read, Answer }
+    it { should be_able_to :read, Comment }
+    it { should be_able_to :read, Question }
+    it { should be_able_to :read, User }
 
     it { should be_able_to :create, Question }
     it { should be_able_to :create, Answer }
@@ -69,6 +73,10 @@ RSpec.describe Ability do
       it { should_not be_able_to :vote_down, question }
       it { should be_able_to :vote_cancel, other_question }
       it { should_not be_able_to :vote_cancel, question }
+    end
+
+    context 'my user profiles' do
+      it { should be_able_to :me, user }
     end
   end
 end

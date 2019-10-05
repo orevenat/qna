@@ -71,7 +71,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'renders update view' do
         patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid) }, format: :js
-        expect(response).to have_http_status :forbidden
+        expect(response).to render_template :update
       end
     end
 
