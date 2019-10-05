@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Profiles API', type: :request do
   let(:me) { create(:user) }
   let(:access_token) { create(:access_token, resource_owner_id: me.id) }
-  let(:headers) { { "CONTENT_TYPE" => "application/json",
-                    "ACCEPT" => "application/json"} }
+  let(:headers) { { "ACCEPT" => "application/json"} }
+  let(:params) { { access_token: access_token.token } }
 
   describe 'GET /api/v1/profiles/me' do
     let(:api_path) { '/api/v1/profiles/me' }
