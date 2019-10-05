@@ -22,6 +22,8 @@ describe 'Answers API', type: :request do
 
       before { get api_path, params: { access_token: access_token.token }, headers: headers }
 
+      it_behaves_like 'Request sucessfull status'
+
       it 'returns all public fields' do
         %w[id body created_at updated_at].each do |attr|
           expect(answer_response[attr]).to eq answer.send(attr).as_json

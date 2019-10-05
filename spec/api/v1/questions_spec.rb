@@ -21,6 +21,8 @@ describe 'Questions API', type: :request do
 
       before { get api_path, params: { access_token: access_token.token }, headers: headers }
 
+      it_behaves_like 'Request sucessfull status'
+
       it 'returns list of questions' do
         expect(json['questions'].size).to eq 3
       end
@@ -72,6 +74,8 @@ describe 'Questions API', type: :request do
       let(:files) { question.files }
 
       before { get api_path, params: { access_token: access_token.token }, headers: headers }
+
+      it_behaves_like 'Request sucessfull status'
 
       it 'returns all public fields' do
         %w[id title body created_at updated_at].each do |attr|
@@ -157,9 +161,7 @@ describe 'Questions API', type: :request do
       context 'create with valid params' do
         before { post api_path, params: params, headers: headers }
 
-        it 'return status 201' do
-          expect(response.status).to eq 201
-        end
+        it_behaves_like 'Request sucessfull status'
 
         it 'saves a new question in the database' do
           expect(me.questions.count).to eq 1
@@ -188,6 +190,36 @@ describe 'Questions API', type: :request do
 
         it 'return error message' do
           expect(json['errors']).to be_truthy
+        end
+      end
+    end
+  end
+
+  describe 'PATCH /api/v1/question/:id' do
+    let(:question_params) { { title: "New title", body: "New body" } }
+    let(:params) { { access_token: access_token.token, question: question_params } }
+    let(:question) { create(:question, user: me) }
+    let(:api_path) { "/api/v1/questions/#{question.id}" }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { 'patch' }
+    end
+
+    context 'authorized' do
+      context 'update with valid params' do
+        before { patch api_path, headers: headers, params: params }
+
+        it_behaves_like 'Request sucessfull status'
+      end
+
+      context 'update with invalid params' do
+        let(:params) { { access_token: access_token.token,
+                         question: { title: question.title, body: nil } } }
+
+        before { patch api_path, headers: headers, params: params }
+
+        it 'return status :unprocessable_entity' do
+          expect(response.status).to eq 422
         end
       end
     end
