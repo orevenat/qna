@@ -74,6 +74,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email'
+  gem 'database_cleaner'
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
