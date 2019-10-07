@@ -28,9 +28,9 @@ class Ability
 
     can :me, user
 
-    can :create, [Answer, Comment, Question]
+    can :create, [Answer, Comment, Question, Subscription]
     can :update, [Answer, Comment, Question], user_id: user.id
-    can :destroy, [Answer, Comment, Question], user_id: user.id
+    can :destroy, [Answer, Comment, Question, Subscription], user_id: user.id
 
     can :set_best, Answer, question: { user_id: user.id }
 

@@ -14,7 +14,7 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  after_create :question_author_notification
+  after_create :question_new_answer_notification
 
   scope :best, -> { order(best: :DESC) }
 
@@ -28,7 +28,7 @@ class Answer < ApplicationRecord
 
   private
 
-  def question_author_notification
+  def question_new_answer_notification
     NewAnswerNotificationJob.perform_later(self)
   end
 end
