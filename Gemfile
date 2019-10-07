@@ -52,8 +52,11 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
+gem 'sidekiq'
+gem 'sinatra', require: false
 gem 'skim'
 gem 'slim-rails'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

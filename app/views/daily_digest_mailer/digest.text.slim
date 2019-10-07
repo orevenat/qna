@@ -1,0 +1,8 @@
+'Новые вопросы за прошедший день:
+
+= "\r\n" * 2
+- @questions.each do |question|
+  ' #{question[:title]}
+  = "\r\n"
+  ' #{url_for(question)}
+  = "\r\n" * 2

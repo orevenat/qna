@@ -51,4 +51,13 @@ RSpec.describe Answer, type: :model do
       expect(another_answer).to be_best
     end
   end
+
+  describe 'question_author_notification' do
+    let(:answer) { build(:answer) }
+
+    it 'calls NewAnswerNotificationJob' do
+      expect(NewAnswerNotificationJob).to receive(:perform_later).with(answer)
+      answer.save!
+    end
+  end
 end
