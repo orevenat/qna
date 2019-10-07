@@ -1,0 +1,5 @@
+h1 Новый ответ на ваш вопрос: #{@question.title}
+b Текст ответа:
+p= @answer.body
+b Подробнее:
+p= link_to @question.title, url_for(@question)
