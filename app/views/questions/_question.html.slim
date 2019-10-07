@@ -23,8 +23,13 @@
     .new_comment
       = render 'comments/form', resource: question
 
+    .question_subscription
+      - if can?(:create, Subscription)
+        = render 'subscriptions/subscription', resource: question, subscription: subscription
+
   - if current_user&.author_of?(question)
     p= link_to 'Edit question', '#', class: 'edit-question-link'
+
 
     .current-question-errors
       = render 'shared/errors', resource: question
