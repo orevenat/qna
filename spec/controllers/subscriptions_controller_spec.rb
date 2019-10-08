@@ -25,7 +25,7 @@ RSpec.describe SubscriptionsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:subscription) { create(:subscription, resource: question, user: user) }
+    let!(:subscription) { create(:subscription, question: question, user: user) }
 
     context 'authenticated user' do
       before { login(user) }

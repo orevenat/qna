@@ -2,7 +2,7 @@
 
 class Subscription < ApplicationRecord
   belongs_to :user
-  belongs_to :resource, polymorphic: true
+  belongs_to :question
 
-  validates :user_id, uniqueness: { scope: %i[resource_id resource_type] }
+  validates :user, uniqueness: { scope: :question }
 end
