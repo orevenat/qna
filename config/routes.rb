@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'subscriptions/create'
-  get 'subscriptions/destroy'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -25,6 +23,8 @@ Rails.application.routes.draw do
   concern :subscribed do
     resources :subscriptions, only: [:create, :destroy], shallow: true
   end
+
+  get 'search', to: 'search#search'
 
   resources :attachments, only: :destroy
   resources :links, only: :destroy

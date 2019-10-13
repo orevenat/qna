@@ -1,0 +1,7 @@
+.search-results
+  - if @search_result
+    - @search_result.each do |resource|
+      - template = resource.class.name.downcase
+      = render template, resource: resource
+  - else
+    p No search results for this query

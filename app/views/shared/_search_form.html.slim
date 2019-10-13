@@ -1,0 +1,5 @@
+.search-form
+  = simple_form_for '', url: search_path, method: 'get', html: { class: 'form-inline' } do |f|
+    = f.input :q, label: false, input_html: { value: params[:q], class: 'form-control mr-sm-2', type: 'search', id: 'form-search-field ' }
+    = f.select :type, valid_types, selected: params[:type] || valid_types.first
+    = f.submit 'Search', class: 'btn btn-primary'
