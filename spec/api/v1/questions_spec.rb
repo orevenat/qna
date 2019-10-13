@@ -42,7 +42,7 @@ describe 'Questions API', type: :request do
       end
 
       describe 'answers' do
-        let(:answer) { answers.first }
+        let!(:answer) { answers.last }
         let(:answer_response) { question_response['answers'].first }
 
         it 'returns list of answers' do
@@ -92,7 +92,7 @@ describe 'Questions API', type: :request do
       end
 
       describe 'answers' do
-        let(:answer) { answers.first }
+        let!(:answer) { answers.last }
         let(:answer_response) { question_response['answers'].first }
 
         it 'returns list of answers' do
@@ -122,7 +122,7 @@ describe 'Questions API', type: :request do
       end
 
       describe 'links' do
-        let(:link) { links.last }
+        let!(:link) { links.last }
         let(:link_response) { question_response['links'].first }
 
         it 'returns list of comments' do
