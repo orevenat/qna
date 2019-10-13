@@ -46,16 +46,20 @@ gem 'devise'
 gem 'doorkeeper'
 gem 'gon'
 gem 'jquery-rails'
+gem 'mysql2'
 gem 'octokit'
 gem 'oj'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
+gem 'shallow_attributes'
 gem 'sidekiq'
 gem 'sinatra', require: false
+gem 'simple_form'
 gem 'skim'
 gem 'slim-rails'
+gem 'thinking-sphinx'
 gem 'whenever', require: false
 
 group :development, :test do

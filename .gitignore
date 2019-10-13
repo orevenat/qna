@@ -23,6 +23,10 @@
 /public/assets
 .byebug_history
 
+/db/sphinx/
+!/db/sphinx/.keep
+/config/*.sphinx.conf
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/database.yml
