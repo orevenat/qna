@@ -7,6 +7,12 @@ rvm:
 cache:
   bundler: true
 
+addons:
+  postgresql: "10"
+
+services:
+  - postgresql
+
 install:
   - psql -c 'create database qna_test;' -U postgres
   - cp config/database.travis.yml config/database.yml
