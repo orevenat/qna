@@ -17,6 +17,7 @@ install:
   - cp config/database.travis.yml config/database.yml
   - cp .env.example .env
   - bundle install --jobs 3 --retry 3
+  - bundle exec rake db:setup
 
 script:
   - make lint
