@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Profiles API', type: :request do
   let(:me) { create(:user) }
   let(:access_token) { create(:access_token, resource_owner_id: me.id) }
-  let(:headers) { { "ACCEPT" => "application/json"} }
+  let(:headers) { { 'ACCEPT' => 'application/json' } }
   let(:params) { { access_token: access_token.token } }
 
   describe 'GET /api/v1/profiles/me' do

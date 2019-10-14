@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::QuestionsController < Api::V1::BaseController
-  before_action :question, only: [:show, :update, :destroy]
+  before_action :question, only: %i[show update destroy]
 
   authorize_resource
 
@@ -14,7 +14,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def create
-	@question = current_resource_owner.questions.new(question_params)
+    @question = current_resource_owner.questions.new(question_params)
 
     if @question.save
       render json: @question, status: :created
@@ -37,7 +37,6 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     else
       render json: { errors: question.errors }, status: :unprocessable_entity
     end
-
   end
 
   private

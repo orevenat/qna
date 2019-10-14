@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can add links to answer', %q{
+feature 'User can add links to answer', "
   In order to provide additional info to my answer
   As an answer's author
   I'd like to be able to add links
-} do
+" do
   given(:user) { create(:user) }
   given(:question) { create(:question) }
   given(:gist_url) { 'https://gist.github.com/orevenat/14e14db899be7db08178ddc5897b634e' }
@@ -40,7 +42,7 @@ feature 'User can add links to answer', %q{
     click_on 'Add link'
     click_on 'Add link'
 
-    all(".nested-fields").each_with_index do |nested, index|
+    all('.nested-fields').each_with_index do |nested, index|
       within nested do
         fill_in 'Link name', with: "My link # #{index + 1}"
         fill_in 'Url', with: urls[index]

@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can destroy his own question', %q{
+feature 'User can destroy his own question', "
   As an authenticated user
   I'd like to be able to remove his own question
-} do
-
+" do
   given(:user) { create(:user) }
   given(:question) { create(:question, :with_file, user: user) }
   given(:another_user) { create(:user) }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
@@ -42,6 +44,6 @@ RSpec.describe Question, type: :model do
 
     it "other user don't have subscription" do
       expect(other_user.subscribed_of?(question)).to be_falsey
-   end
+    end
   end
 end

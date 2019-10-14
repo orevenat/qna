@@ -11,4 +11,3 @@ class FileSerializer < ActiveModel::Serializer
     Rails.application.routes.url_helpers.rails_blob_path(object, only_path: true)
   end
 end
-

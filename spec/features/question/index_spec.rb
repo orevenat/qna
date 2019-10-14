@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'user can watch questions list', %q{
+feature 'user can watch questions list', "
   As any user
   I'd like to be able to watch list of questions
-} do
-
+" do
   given(:questions) { create_list(:question, 3) }
 
   background do

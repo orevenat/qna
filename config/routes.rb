@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
@@ -21,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   concern :subscribed do
-    resources :subscriptions, only: [:create, :destroy], shallow: true
+    resources :subscriptions, only: %i[create destroy], shallow: true
   end
 
   get 'search', to: 'search#search'
@@ -43,8 +45,8 @@ Rails.application.routes.draw do
         get :me, on: :collection
       end
 
-      resources :questions, only: [:index, :show, :create, :update, :destroy] do
-        resources :answers, shallow: true, only: [:show, :create, :update, :destroy]
+      resources :questions, only: %i[index show create update destroy] do
+        resources :answers, shallow: true, only: %i[show create update destroy]
       end
     end
   end

@@ -11,9 +11,7 @@ class SubscriptionsController < ApplicationController
     @subscription = @resource.subscriptions.create(user: current_user)
   end
 
-  def destroy
-    subscription.destroy
-  end
+  delegate :destroy, to: :subscription
 
   private
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Services::Search do
@@ -11,9 +13,9 @@ RSpec.describe Services::Search do
 
   context 'all and wrong types' do
     %w[all undefined any_other_type].each do |type|
-        it "type: #{type} search" do
+      it "type: #{type} search" do
         expect(ThinkingSphinx).to receive(:search).with(search_text, page: 1, per_page: 20)
-          Services::Search.call(q: search_text, type: type)
+        Services::Search.call(q: search_text, type: type)
       end
     end
   end

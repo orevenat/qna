@@ -31,8 +31,8 @@ RSpec.describe CommentsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not save the comment' do
-        expect { post :create, params: { comment: attributes_for(:comment, :invalid), question_id: question }, format: :js }.
-            to_not change(question.comments, :count)
+        expect { post :create, params: { comment: attributes_for(:comment, :invalid), question_id: question }, format: :js }
+          .to_not change(question.comments, :count)
       end
 
       it 'render create template' do

@@ -9,7 +9,7 @@ module Services
     attribute :per_page, Integer, default: 20
     attribute :type, String, default: 'all'
 
-    TYPES = %w[question answer comment user]
+    TYPES = %w[question answer comment user].freeze
 
     def self.call(options = {})
       new(options).call

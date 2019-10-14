@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'sphinx_helper'
 
 RSpec.describe SearchController, type: :controller do
   let!(:answers) { create_list(:answer, 3) }
   let(:search_text) { answers.first.body.truncate(5, omission: '').strip }
 
-  describe "GET #search" do
+  describe 'GET #search' do
     it 'returns http success' do
       get :search, params: { q: 'search text', type: 'answer' }
       expect(response).to have_http_status(:success)

@@ -18,13 +18,9 @@ class AnswersController < ApplicationController
     answer.update(answer_params)
   end
 
-  def destroy
-    answer.destroy
-  end
+  delegate :destroy, to: :answer
 
-  def set_best
-    answer.set_best
-  end
+  delegate :set_best, to: :answer
 
   private
 
@@ -48,10 +44,10 @@ class AnswersController < ApplicationController
     return if answer.errors.any?
 
     ActionCable.server.broadcast(
-        "questions/#{question.id}/answers",
-        answer: answer,
-        links: answer.links,
-        rating: answer.rating
+      "questions/#{question.id}/answers",
+      answer: answer,
+      links: answer.links,
+      rating: answer.rating
     )
   end
 end

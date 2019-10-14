@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Questions API', type: :request do
   let(:me) { create(:user) }
   let(:access_token) { create(:access_token, resource_owner_id: me.id) }
-  let(:headers) { { "ACCEPT" => "application/json"} }
+  let(:headers) { { 'ACCEPT' => 'application/json' } }
   let(:params) { { access_token: access_token.token } }
 
   describe 'GET /api/v1/questions' do
@@ -151,7 +153,7 @@ describe 'Questions API', type: :request do
   describe 'POST /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
     let(:params) { { access_token: access_token.token, question: question_params } }
-    let(:question_params) { { title: "New title", body: "New body" } }
+    let(:question_params) { { title: 'New title', body: 'New body' } }
 
     it_behaves_like 'API Authorizable' do
       let(:method) { 'post' }
@@ -175,8 +177,10 @@ describe 'Questions API', type: :request do
       end
 
       context 'create with invalid params' do
-        let(:params) { { access_token: access_token.token,
-                         question: { title: "New title", body: nil } } }
+        let(:params) do
+          { access_token: access_token.token,
+            question: { title: 'New title', body: nil } }
+        end
 
         before { post api_path, headers: headers, params: params }
 
@@ -196,7 +200,7 @@ describe 'Questions API', type: :request do
   end
 
   describe 'PATCH /api/v1/questions/:id' do
-    let(:question_params) { { title: "New title", body: "New body" } }
+    let(:question_params) { { title: 'New title', body: 'New body' } }
     let(:params) { { access_token: access_token.token, question: question_params } }
     let(:question) { create(:question, user: me) }
     let(:api_path) { "/api/v1/questions/#{question.id}" }
@@ -213,8 +217,10 @@ describe 'Questions API', type: :request do
       end
 
       context 'update with invalid params' do
-        let(:params) { { access_token: access_token.token,
-                         question: { title: question.title, body: nil } } }
+        let(:params) do
+          { access_token: access_token.token,
+            question: { title: question.title, body: nil } }
+        end
 
         before { patch api_path, headers: headers, params: params }
 

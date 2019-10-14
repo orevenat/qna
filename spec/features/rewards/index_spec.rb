@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'user can watch his rewards list', %q{
+feature 'user can watch his rewards list', "
   As authenticated user
   I'd like to be able to watch list of my rewards
-} do
-  given(:user) {create(:user)}
+" do
+  given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given!(:rewards) { create(:reward, user: user) }
 

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Answers API', type: :request do
   let(:me) { create(:user) }
-  let(:headers) { { "ACCEPT" => "application/json"} }
+  let(:headers) { { 'ACCEPT' => 'application/json' } }
   let(:access_token) { create(:access_token, resource_owner_id: me.id) }
   let(:params) { { access_token: access_token.token } }
 
@@ -76,7 +78,7 @@ describe 'Answers API', type: :request do
   describe 'POST /api/v1/questions/:question_id/answers' do
     let(:question) { create(:question) }
     let(:api_path) { "/api/v1/questions/#{question.id}/answers" }
-    let(:answer_params) { { body: "New body" } }
+    let(:answer_params) { { body: 'New body' } }
     let(:params) { { access_token: access_token.token, answer: answer_params } }
 
     it_behaves_like 'API Authorizable' do
@@ -101,8 +103,10 @@ describe 'Answers API', type: :request do
       end
 
       context 'create with invalid params' do
-        let(:params) { { access_token: access_token.token,
-                         answer: { body: nil } } }
+        let(:params) do
+          { access_token: access_token.token,
+            answer: { body: nil } }
+        end
 
         before { post api_path, headers: headers, params: params }
 
@@ -122,7 +126,7 @@ describe 'Answers API', type: :request do
   end
 
   describe 'PATCH /api/v1/answers/:id' do
-    let(:answer_params) { { body: "New body" } }
+    let(:answer_params) { { body: 'New body' } }
     let(:params) { { access_token: access_token.token, answer: answer_params } }
     let(:answer) { create(:answer, user: me) }
     let(:api_path) { "/api/v1/answers/#{answer.id}" }
@@ -139,8 +143,10 @@ describe 'Answers API', type: :request do
       end
 
       context 'update with invalid params' do
-        let(:params) { { access_token: access_token.token,
-                         answer: { body: nil } } }
+        let(:params) do
+          { access_token: access_token.token,
+            answer: { body: nil } }
+        end
 
         before { patch api_path, headers: headers, params: params }
 

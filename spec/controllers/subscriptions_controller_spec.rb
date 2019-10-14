@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
   let(:user) { create(:user) }
   let(:question) { create(:question) }
 
-  describe "POST #create" do
+  describe 'POST #create' do
     context 'authenticated user' do
       before { login(user) }
 
@@ -24,7 +26,7 @@ RSpec.describe SubscriptionsController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     let!(:subscription) { create(:subscription, question: question, user: user) }
 
     context 'authenticated user' do

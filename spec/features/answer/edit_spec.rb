@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can edit his answer', %q{
+feature 'User can edit his answer', "
   In order to correct mistakes
   As an author of answer
   I'd like to be able to edit my answer
-} do
-
+" do
   given!(:user) { create(:user) }
   given!(:user2) { create(:user) }
   given!(:question) { create(:question) }
@@ -15,7 +16,7 @@ feature 'User can edit his answer', %q{
 
   scenario "Unathenticated can't edit answer" do
     visit question_path(question)
-    expect(page).to_not have_link  'Edit'
+    expect(page).to_not have_link 'Edit'
   end
 
   describe 'Authencicated user', js: true do
@@ -76,7 +77,7 @@ feature 'User can edit his answer', %q{
 
     scenario "tries to edit other users's question" do
       within "#answer-#{answer2.id}" do
-        expect(page).to_not have_link  'Edit answer'
+        expect(page).to_not have_link 'Edit answer'
       end
     end
   end

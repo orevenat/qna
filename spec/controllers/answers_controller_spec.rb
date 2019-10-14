@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
@@ -120,13 +122,13 @@ RSpec.describe AnswersController, type: :controller do
       before { login(user) }
 
       it 'sets best to true' do
-        post :set_best, params: {id: answer }, format: :js
+        post :set_best, params: { id: answer }, format: :js
         answer.reload
         expect(answer).to be_best
       end
 
       it 'renders set_best template' do
-        post :set_best, params: {id: answer }, format: :js
+        post :set_best, params: { id: answer }, format: :js
         expect(response).to render_template :set_best
       end
     end
@@ -135,7 +137,7 @@ RSpec.describe AnswersController, type: :controller do
       before { login(another_user) }
 
       it "don't sets best to true" do
-        post :set_best, params: {id: answer }, format: :js
+        post :set_best, params: { id: answer }, format: :js
         answer.reload
         expect(answer).to_not be_best
       end

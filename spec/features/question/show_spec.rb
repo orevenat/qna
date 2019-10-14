@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can watch question and answers', %q{
+feature 'User can watch question and answers', "
   In order to get answer from a community
   As an authenticated user
   I'd like to be able to ask the question
-} do
-
+" do
   given(:author) { create(:user) }
   given(:user) { create(:user) }
   given(:question) { create(:question, user: author) }
@@ -42,7 +43,7 @@ feature 'User can watch question and answers', %q{
         expect(page).to_not have_link 'Delete link'
       end
     end
-   end
+  end
 
   context 'Author can' do
     background do

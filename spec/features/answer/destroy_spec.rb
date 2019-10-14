@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can destroy his own answer', %q{
+feature 'User can destroy his own answer', "
   As an authenticated user
   I'd like to be able to remove his own answer
-} do
-
+" do
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, :with_file, question: question, user: user) }
@@ -24,7 +25,7 @@ feature 'User can destroy his own answer', %q{
       end
 
       a = page.driver.browser.switch_to.alert
-      expect(a.text).to eq("Are you sure?")
+      expect(a.text).to eq('Are you sure?')
       a.accept
       expect(page).to_not have_content answer.body
     end

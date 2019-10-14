@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can set best answer of his question', %q{
+feature 'User can set best answer of his question', "
   In order to help other peoples with same question
   As an authenticated user and author of question
   I'd like to be able to set best answer to my question
-} do
-
+" do
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given!(:question) { create(:question, user: user) }

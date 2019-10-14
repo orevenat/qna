@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'User can sign up with omniauth providers', %q{
+feature 'User can sign up with omniauth providers', "
   In order to ask questions
   As an unauthenticated user
   I'd like to be able to sign up with omniauth providers
-} do
-
+" do
   background { visit new_user_registration_path }
 
   describe 'with email' do
@@ -15,7 +16,7 @@ feature 'User can sign up with omniauth providers', %q{
         mock_auth_hash(provider)
         silence_omniauth { click_link "Sign in with #{provider}" }
         expect(page).to have_content("Successfully authenticated from #{provider.capitalize} account")
-        expect(page).to have_content("")
+        expect(page).to have_content('')
       end
 
       scenario "User get message with #{provider} that invalid data" do
