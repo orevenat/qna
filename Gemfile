@@ -55,7 +55,7 @@ gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'shallow_attributes'
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.2', '>= 5.2.7'
 gem 'simple_form'
 gem 'sinatra', require: false
 gem 'skim'
