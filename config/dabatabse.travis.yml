@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  databse: qna_test
+  username: postgres
