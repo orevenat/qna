@@ -36,7 +36,7 @@ feature 'User can create question', "
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'text text text'
 
-      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      attach_file 'File', [Rails.root.join('spec', 'rails_helper.rb'), Rails.root.join('spec', 'spec_helper.rb')]
       click_on 'Ask'
 
       expect(page).to have_link 'rails_helper.rb'
@@ -47,7 +47,7 @@ feature 'User can create question', "
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'text text text'
       fill_in 'Reward', with: 'My reward'
-      attach_file 'Image', "#{Rails.root}/public/reward_logo.png"
+      attach_file 'Image', Rails.root.join('public', 'reward_logo.png')
       click_on 'Ask'
 
       expect(page).to have_content 'My reward'

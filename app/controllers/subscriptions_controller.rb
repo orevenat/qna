@@ -11,7 +11,11 @@ class SubscriptionsController < ApplicationController
     @subscription = @resource.subscriptions.create(user: current_user)
   end
 
-  delegate :destroy, to: :subscription
+  # rubocop:disable Rails/Delegate
+  def destroy
+    subscription.destroy
+  end
+  # rubocop:enable Rails/Delegate
 
   private
 

@@ -55,7 +55,7 @@ feature 'User can edit his answer', "
       scenario 'edit his answer with attached files' do
         within "#answer-#{answer.id}" do
           fill_in 'Your answer', with: 'edited answer'
-          attach_file 'Files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+          attach_file 'Files', [Rails.root.join('spec', 'rails_helper.rb'), Rails.root.join('spec', 'spec_helper.rb')]
           click_on 'Save answer'
 
           expect(page).to have_link 'rails_helper.rb'

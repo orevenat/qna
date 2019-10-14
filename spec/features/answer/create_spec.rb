@@ -25,7 +25,7 @@ feature 'User can give an answers' do
     scenario 'asks a question with attached file' do
       fill_in 'Your answer', with: 'answer text'
 
-      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      attach_file 'File', [Rails.root.join('spec', 'rails_helper.rb'), Rails.root.join('spec', 'spec_helper.rb')]
       click_on 'Send answer'
 
       within '.answers' do

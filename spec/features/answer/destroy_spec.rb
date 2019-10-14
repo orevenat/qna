@@ -69,7 +69,7 @@ feature 'User can destroy his own answer', "
     end
   end
 
-  scenario 'Unauthenticated user tries to remove a answer', js: :true do
+  scenario 'Unauthenticated user tries to remove a answer', js: true do
     visit question_path(question)
 
     within "#answer-#{answer.id}" do

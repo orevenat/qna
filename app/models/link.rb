@@ -12,7 +12,7 @@ class Link < ApplicationRecord
   end
 
   def gist_content
-    gist = ::GistContentService.call(gist_id)
+    ::GistContentService.call(gist_id)
   end
 
   private
