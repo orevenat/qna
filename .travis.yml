@@ -7,13 +7,6 @@ rvm:
 cache:
   bundler: true
 
-addons:
-  postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
-
 services:
   - postgresql
   - redis-server
