@@ -1,0 +1,26 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+DEFAULTS: &DEFAULTS
+  first_name: $LABEL
+  last_name: LastName
+  confirmed_at: <%= Time.current %>
+
+one:
+  <<: *DEFAULTS
+  email: $LABEL@email.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+two:
+  <<: *DEFAULTS
+  email: $LABEL@email.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+full:
+  <<: *DEFAULTS
+  email: $LABEL@email.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+with_github:
+  <<: *DEFAULTS
+  email: github@github.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>

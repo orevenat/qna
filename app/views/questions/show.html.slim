@@ -13,18 +13,20 @@ h2
 .answer-errors
   = render 'shared/errors', resource: answer
 
+
 = form_with model: [question, answer], class: 'new-answer' do |f|
-  p
+  p.form-group
     = f.label :body, 'Your answer'
-    = f.text_area :body
+    = f.text_area :body, class: 'form-control'
   p
     = f.label :files
     = f.file_field :files, multiple: true, direct_upload: true
 
-  h3 Links:
+  h5 Links:
   #links
     = f.fields_for :links do |link|
       = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
+  br
 
-  p= f.submit 'Send answer'
+  p= f.submit 'Send answer', class: 'btn btn-primary'
 

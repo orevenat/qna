@@ -1,0 +1,27 @@
+= form_with model: question do |f|
+  p.form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  p.form-group
+    = f.label :body
+    = f.text_area :body, class: 'form-control'
+  p.form-group.custom-file
+    = f.file_field :files, multiple: true, direct_upload: true, class: 'custom-file-input'
+    = f.label :files, class: 'custom-file-label'
+  div.form-group
+    = f.fields_for :reward do |r|
+      p.form-group
+        = r.label :title, 'Reward'
+        = r.text_area :title, class: 'form-control'
+      p.form-group.custom-file
+        = r.file_field :image, class: 'custom-file-input'
+        = r.label :image, class: 'custom-file-label'
+
+
+  h4 Links:
+  #links
+    = f.fields_for :links do |link|
+      = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
+  br
+  p.form-group
+    = f.submit 'Ask', class: 'btn btn-primary'

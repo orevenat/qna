@@ -1,0 +1,12 @@
+= form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+  p.form-group
+    = f.label :body, 'Your answer'
+    = f.text_area :body, class: 'form-control'
+  p.form-group
+    = f.file_field :files, multiple: true, direct_upload: true
+    = f.label :files
+  p.form-group
+    = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
+  p.form-group
+    = f.submit 'Save answer', class: 'btn btn-primary'
+

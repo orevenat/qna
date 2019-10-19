@@ -3,9 +3,9 @@
 .comments-form
   = form_with model: [resource, resource.comments.new], remote: true, id: "new-comment-#{resource_type}-#{resource.id}" do |f|
     .errors
-    p
+    p.form-group
       = f.label :body, 'Comment'
-      = f.text_area :body
-    p
-      = f.submit 'Add comment'
+      = f.text_area :body, class: 'form-control'
+    p.form-group
+      = f.submit 'Add comment', class: 'btn btn-primary'
 

@@ -1,5 +1,5 @@
 doctype html
-html lang="en"
+html.h-100 lang="en"
   head
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"
@@ -12,8 +12,8 @@ html lang="en"
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
-  body
-    .navbar.navbar-light.bg-light
+  body.d-flex.flex-column.h-100
+    .navbar.navbar-light.bg-light.mb-4
       .container
         a.navbar-brand href="/" Qna
         = render 'shared/search_form'
@@ -26,5 +26,6 @@ html lang="en"
           = flash_messages
           = yield
 
-      footer
+    footer.footer.mt-auto.py-3
+      .container
         p &copy; Thinknetica

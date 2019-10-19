@@ -30,17 +30,6 @@
     - if current_user&.author_of?(answer)
       p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
-      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-        p
-          = f.label :body, 'Your answer'
-        p
-          = f.text_area :body
-        p
-          = f.label :files
-          = f.file_field :files, multiple: true, direct_upload: true
-        p
-          = link_to_add_association 'Add link', f, :links, partial: 'links/link_fields'
-        p
-          = f.submit 'Save answer'
+      = render 'answers/form', answer: answer
 
       p= link_to 'Remove answer', answer_path(answer), method: :delete, remote: true, data: { confirm: 'Are you sure?' }
