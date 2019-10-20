@@ -16,3 +16,5 @@ append :linked_files, 'config/database.yml', 'config/master.key', '.env'
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'storage'
 
 set :sidekiq_pid, -> { 'tmp/pids/sidekiq.pid' }
+
+after 'deploy:publishing', 'unicorn:restart'
