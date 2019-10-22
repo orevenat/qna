@@ -1,5 +1,6 @@
-- if reward.present?
-  h4 Reward:
-  p= reward.title
-  - if reward.image?
-    p= image_tag reward.image, alt: reward.title
+- cache reward do
+  - if reward.present?
+    h4 Reward:
+    p= reward.title
+    - if reward.image?
+      p= image_tag reward.image, alt: reward.title
