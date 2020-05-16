@@ -1,5 +1,9 @@
 div#question-area
   = render question
+  .question_subscription
+    - if can?(:create, Subscription)
+      = render 'subscriptions/subscription', resource: question, subscription: subscription
+
 
 h2
   = 'Answers:'
